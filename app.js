@@ -10,11 +10,6 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'src/Public')));
 
-app.use((req, res, next) => {
-    res.locals.mensaje = null;
-    res.locals.tipoMensaje = null;
-    next();
-});
 
 // Configuración de EJS
 app.set('view engine', 'ejs');

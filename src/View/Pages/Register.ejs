@@ -25,16 +25,33 @@
     <p class="login-link">¿Ya tienes una cuenta? <a href="/user/login">Inicia sesión</a></p>
     </form>
 </section>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
-    if (typeof tipoMensaje !== 'undefined' && typeof mensaje !== 'undefined' && mensaje) { 
-        Swal.fire({
-            icon: '<%= tipoMensaje %>', 
-            title: '<%= mensaje %>',
-            showConfirmButton: false,
-            timer: 2000
-        });
-    }
-    </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<% if (typeof success !== 'undefined' && success) { %>
+<script>
+Swal.fire({
+    title: '¡Registro exitoso!',
+    text: '<%= success %>',
+    icon: 'success',
+    timer: 3000,
+    showConfirmButton: false
+}).then(() => {
+    window.location.href = '/user/login';
+});
+</script>
+<% } %>
+
+<% if (typeof error !== 'undefined' && error) { %>
+<script>
+Swal.fire({
+    title: 'Error',
+    text: '<%= error %>',
+    icon: 'error',
+    confirmButtonText: 'Intentar de nuevo'
+});
+</script>
+<% } %>
+
 
 
 

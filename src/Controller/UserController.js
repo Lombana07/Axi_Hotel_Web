@@ -1,4 +1,3 @@
-// src/Controllers/UserController.js
 const Usuario = require('../Models/User');
 
 exports.registrarUsuario = async (req, res) => {
@@ -7,10 +6,9 @@ exports.registrarUsuario = async (req, res) => {
 
     await Usuario.create({ name, lastname, address, mail, password });
 
-    // Si todo va bien, renderiza la vista con los mensajes
+    // Renderiza con variable "success"
     res.render('Pages/Register', { 
-        mensaje: 'Usuario registrado exitosamente ✅',
-        tipoMensaje: 'success'
+        success: 'Usuario registrado exitosamente ✅'
     });
 
     } catch (error) {
@@ -22,9 +20,9 @@ exports.registrarUsuario = async (req, res) => {
     }
 
     res.render('Pages/Register', { 
-        mensaje: msg,
-        tipoMensaje: 'error'
+        error: msg
     });
     }
 };
+
 
