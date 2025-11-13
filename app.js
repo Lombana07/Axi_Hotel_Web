@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const expressLayouts = require('express-ejs-layouts');
+const session = require('express-session'); // importacion mantener sesiones
 const sequelize = require('./src/Models/db'); //  Importación correcta
 const Usuario = require('./src/Models/User'); // Importar el modelo
 
@@ -20,6 +21,21 @@ app.set('layout', 'Layouts/Main');
 // Archivos estáticos
 app.use(express.static(path.join(__dirname, '../Public')));
 app.use(express.static('Public'));
+
+app.use(
+    session({
+    secret: 'Lombana-_-07',
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 1000 * 60 * 60 } // 1 hora
+    })
+);
+
+// Middleware global para EJS
+app.use((req, res, next) => {
+  res.locals.usuario = req.session.usuario || null; // visible en todas las vistas
+    next();
+});
 
 // Conexión y sincronización con la base de datos
 sequelize.sync({ force: false })

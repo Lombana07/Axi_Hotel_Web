@@ -1,0 +1,14 @@
+<section class="profile-container">
+    <h2>👤 Mi Perfil</h2>
+    <% if (usuario) { %>
+    <div class="profile-card">
+        <p><strong>Nombre:</strong> <%= usuario.name %></p>
+        <p><strong>Correo:</strong> <%= usuario.mail %></p>
+    </div>
+    <div class="profile-actions">
+        <a href="/user/logout" class="btn-logout">Cerrar sesión</>
+    </div>
+    <% } else { %>
+    <p>No hay sesión activa. <a href="/Login">Inicia sesión aquí</a>.</p>
+    <% } %>
+</section>

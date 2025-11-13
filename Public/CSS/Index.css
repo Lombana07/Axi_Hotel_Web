@@ -111,3 +111,30 @@ main {
     padding: 15px;
 }
 }
+
+
+.profile-container {
+    max-width: 500px;
+    margin: 2rem auto;
+    text-align: center;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.profile-card p {
+    font-size: 1.1rem;
+    margin: .6rem 0;
+}
+.btn-logout {
+    display: inline-block;
+    padding: .6rem 1.2rem;
+    background-color: #c0392b;
+    color: #fff;
+    border-radius: .5rem;
+    text-decoration: none;
+    transition: background .2s;
+}
+.btn-logout:hover {
+    background-color: #e74c3c;
+}
