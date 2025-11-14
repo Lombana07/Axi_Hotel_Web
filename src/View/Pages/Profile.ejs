@@ -12,3 +12,37 @@
     <p>No hay sesión activa. <a href="/Login">Inicia sesión aquí</a>.</p>
     <% } %>
 </section>
+<div class="mis-reservas">
+
+    <h2>Mis reservas</h2>
+    <% if (reservas.length === 0) { %>
+        <p>No tienes reservas aún.</p>
+    <% } else { %>
+        <table class="tabla-reservas">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Habitación</th>
+                    <th>Entrada</th>
+                    <th>Salida</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% reservas.forEach(r => { %>
+                    <tr>
+                        <td><%= r.idreserva %></td>
+                        <td><%= r.Habitacion ? r.Habitacion.nombre : "—" %></td>
+                        <td><%= r.fechaEntrada %></td>
+                        <td><%= r.fechaSalida %></td>
+                        <td>
+                            <form action="/booking/cancelar/<%= r.idreserva %>" method="POST">
+                                <button type="submit">Cancelar</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    <% } %>
+</div>

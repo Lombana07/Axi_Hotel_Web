@@ -42,7 +42,7 @@ exports.iniciarSesion = async (req, res) => {
     }
     // Guardar usuario en la sesión
     req.session.usuario = {
-        id: usuario.id,
+        iduser: usuario.iduser,
         name: usuario.name,
         mail: usuario.mail
     };

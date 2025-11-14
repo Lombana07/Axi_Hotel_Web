@@ -1,5 +1,5 @@
 {
-    "name": "Axi hotel",
+    "name": "axi_hotel",
     "version": "1.0.0",
     "description": "Proyecto web de hotel con Node.js y Express",
     "main": "app.js",

@@ -1,4 +1,33 @@
-<section>
-    <h2>Servicios</h2>
-    <p>Lista de servicios ofrecidos...</p>
-</section>
+<h2>Habitaciones disponibles</h2>
+
+<div class="habitaciones-container">
+
+    <% habitaciones.forEach(h => { %>
+        <div class="room-card">
+            <h3>Habitación <%= h.numero %></h3>
+            <p><strong>Tipo:</strong> <%= h.tipo %></p>
+            <p><strong>Precio:</strong> $<%= h.precio %></p>
+            <p><strong>Estado:</strong> <%= h.disponible ? 'Disponible' : 'No disponible' %></p>
+            <% if (h.imagen) { %>
+                <img src="/img/rooms/<%= h.imagen %>" alt="Habitación <%= h.numero %>">
+            <% } %>
+            <% if (h.disponible) { %>
+                <form action="/booking/crear" method="POST">
+                    <input type="hidden" name="roomId" value="<%= h.idhabitacion %>">
+                    <label>Entrada:</label>
+                    <input type="date" name="checkIn" required>
+                    <label>Salida:</label>
+                    <input type="date" name="checkOut" required>
+                    <% if (!usuario) { %>
+                        <p style="color:red;">Debes iniciar sesión para reservar.</p>
+                    <% } else { %>
+                        <button type="submit">Reservar</button>
+                    <% } %>
+                </form>
+            <% } else { %>
+                <p style="color:red;">No Disponible</p>
+            <% } %>
+        </div>
+    <% }); %>
+
+</div>
