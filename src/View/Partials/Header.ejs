@@ -1,20 +1,9 @@
-<header>
-    <h1>Axi Hotel</h1>
-    <nav>
-    <a href="/">Inicio</a> |
-    <a href="/AboutUs">Nosotros</a> |
-    <a href="/Services">Habitaciones</a> |
-    <a href="/Contact">Contáctenos</a> |
-
-    <% if (usuario) { %>
-        <a href="/user/profile">👤 <%= usuario.name %></a> |
-        <a href="/user/logout">Cerrar sesión</a>
-    <% } else { %>
-        <a href="/Login">Iniciar sesión</a> |
-        <a href="/Register">Registrarse</a>
-    <% } %>
-    </nav>
+<header class="hero">
+    <div class="hero-content">
+        <h1>Vive tu descanso ideal</h1>
+        <p>Relájate, disfruta y déjalo todo en nuestras manos.</p>
+        <a href="/Services" class="hero-btn">Reservar ahora</a>
+    </div>
 </header>
-<hr>
 
 

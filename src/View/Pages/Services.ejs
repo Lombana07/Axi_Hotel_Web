@@ -1,33 +1,54 @@
-<h2>Habitaciones disponibles</h2>
+<h2 class="titulo-habitaciones">Habitaciones Disponibles</h2>
 
-<div class="habitaciones-container">
-
+<div class="habitaciones-grid">
     <% habitaciones.forEach(h => { %>
-        <div class="room-card">
-            <h3>Habitación <%= h.numero %></h3>
-            <p><strong>Tipo:</strong> <%= h.tipo %></p>
-            <p><strong>Precio:</strong> $<%= h.precio %></p>
-            <p><strong>Estado:</strong> <%= h.disponible ? 'Disponible' : 'No disponible' %></p>
-            <% if (h.imagen) { %>
-                <img src="/img/rooms/<%= h.imagen %>" alt="Habitación <%= h.numero %>">
-            <% } %>
-            <% if (h.disponible) { %>
-                <form action="/booking/crear" method="POST">
-                    <input type="hidden" name="roomId" value="<%= h.idhabitacion %>">
-                    <label>Entrada:</label>
-                    <input type="date" name="checkIn" required>
-                    <label>Salida:</label>
-                    <input type="date" name="checkOut" required>
-                    <% if (!usuario) { %>
-                        <p style="color:red;">Debes iniciar sesión para reservar.</p>
+        <div class="habitacion-card">
+            <!-- IMAGEN -->
+            <div class="imagen-habitacion">
+                <% if (h.imagen) { %>
+                    <img src="/img/<%= h.imagen %>" alt="Habitación <%= h.numero %>">
+                <% } else { %>
+                    <img src="/img/default-room.jpg" alt="Habitación genérica">
+                <% } %>
+                <% if (!h.disponible) { %>
+                    <span class="tag-no-disponible">No disponible</span>
+                <% } %>
+            </div>
+            <!-- INFO -->
+            <div class="info-habitacion">
+                <h3>Habitación <%= h.numero %></h3>
+                <p><strong>Tipo:</strong> <%= h.tipo %></p>
+                <p class="precio">
+                    <strong>Precio por noche:</strong> $<%= h.precio %>
+                </p>
+                <p>
+                    <strong>Estado:</strong>
+                    <% if (h.disponible) { %>
+                        <span class="estado disponible">Disponible</span>
                     <% } else { %>
-                        <button type="submit">Reservar</button>
+                        <span class="estado no-disponible">No disponible</span>
                     <% } %>
-                </form>
-            <% } else { %>
-                <p style="color:red;">No Disponible</p>
-            <% } %>
+                </p>
+                <!-- FORMULARIO -->
+                <% if (h.disponible) { %>
+                    <form action="/bookings/crear" method="POST" class="form-reserva">
+                        <input type="hidden" name="idhabitacion" value="<%= h.idhabitacion %>">
+                        <label>Entrada:</label>
+                        <input type="date" name="fechaEntrada" required>
+                        <label>Salida:</label>
+                        <input type="date" name="fechaSalida" required>
+                        <% if (!usuario) { %>
+                            <p class="mensaje-login">Debes iniciar sesión para reservar.</p>
+                        <% } else { %>
+                            <button type="submit" class="btn-reservar">Reservar</button>
+                        <% } %>
+                    </form>
+                <% } else { %>
+                    <p class="no-disponible-msg">No disponible actualmente</p>
+                <% } %>
+            </div>
         </div>
-    <% }); %>
-
+    <% }) %>
 </div>
+
+

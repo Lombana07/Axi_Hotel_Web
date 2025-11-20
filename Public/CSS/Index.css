@@ -1,140 +1,576 @@
-/*Reset general */
-* {
+/* --------------------------
+    ESTILOS GENERALES
+---------------------------*/
+body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4e9d8; /* color arena claro */
+    color: #004f6e;
 }
 
-body {
-    background: #f3f6fa;
-    color: #333;
-    line-height: 1.6;
-}
-
-/*Encabezado */
-header {
-    background: #002855;
-    color: #fff;
-    padding: 15px 0;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-}
-
-nav {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-nav a {
-    color: #fff;
+a {
     text-decoration: none;
-    font-weight: 500;
+    color: inherit;
+}
+
+/* Contenedor general para apartados */
+.section {
+    padding: 60px 10%;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(8px);
+    padding: 12px 25px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Logo */
+.logo {
+    font-size: 26px;
+    font-weight: 800;
+    color: #003b6f;
+    text-decoration: none;
+}
+
+.logo span {
+    color: #0096c7;
+}
+
+/* Links */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 22px;
+    align-items: center;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #003b6f;
+    font-size: 18px;
+    transition: 0.25s;
+}
+
+/* ===== Hover con movimiento ===== */
+.nav-links li a:hover {
+    transform: translateY(-3px);
+    color: #0077b6;
+}
+
+/* ===== Iconos de usuario ===== */
+.icon-btn {
+    font-size: 22px;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+}
+
+.icon-btn i {
+    transition: 0.3s;
+    color: #003b6f;
+}
+
+.icon-btn:hover i {
+    transform: translateY(-3px) scale(1.15);
+    color: #0077b6;
+}
+
+/* Usuario logueado */
+.username {
+    font-size: 17px;
+    color: #004b80;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.username i {
+    font-size: 20px;
+}
+
+
+/* --------------------------
+    HERO (INDEX)
+---------------------------*/
+.hero {
+    width: 100%;
+    height: 100vh;
+    background-image: url('/img/FondoIndex.jpg'); /* tu imagen */
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+/* Capa oscura suave para poder leer el texto */
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        rgba(0, 27, 45, 0.4),
+        rgba(0, 0, 0, 0.15)
+    );
+}
+
+/* Contenido del hero */
+.hero-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+}
+
+.hero h1 {
+    font-size: 3.2rem;
+    letter-spacing: 2px;
+    text-shadow: 0px 4px 8px rgba(0,0,0,0.4);
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-top: 10px;
+    text-shadow: 0px 3px 6px rgba(0,0,0,0.5);
+}
+
+/* Botón del Hero */
+.hero-btn {
+    margin-top: 30px;
+    background-color: #3ec9b0; /* turquesa */
+    padding: 12px 28px;
+    border-radius: 30px;
+    color: #002c3a;
+    font-weight: bold;
+    font-size: 1rem;
     transition: 0.3s;
 }
 
-nav a:hover {
-    color: #ffcb05;
+.hero-btn:hover {
+    background-color: #32b39c;
+    transform: translateY(-3px);
 }
 
-/*Contenido principal */
-main {
-    max-width: 900px;
-    margin: 40px auto;
+/* --------------------------
+    CARDS DE HABITACIONES
+---------------------------*/
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0px 6px 18px rgba(0,0,0,0.12);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0px 10px 24px rgba(0,0,0,0.18);
+}
+
+.card img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+}
+
+.card-body {
     padding: 20px;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
-/*Formularios (login / registro) */
-form {
+.card-body h3 {
+    margin: 0;
+    color: #004f6e;
+}
+
+.card-body p {
+    font-size: 0.95rem;
+    margin-top: 10px;
+    color: #1b3c4e;
+}
+
+/* Botón dentro de tarjeta */
+.card-body .btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #3ec9b0;
+    border-radius: 25px;
+    color: #003544;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.card-body .btn:hover {
+    background-color: #32b39c;
+}
+
+/* --------------------------
+    FOOTER
+---------------------------*/
+.footer {
+    background-color: #004f6e;
+    padding: 40px 10%;
+    color: white;
+    text-align: center;
+}
+
+.footer p {
+    margin: 0;
+    opacity: 0.8;
+}
+
+.prueba{
+    height: 15px;
+    width: 15px;
+}
+/*============================*/
+/*        HABITACIONES        */
+/*============================*/
+
+.titulo-habitaciones {
+    text-align: center;
+    font-size: 2.4rem;
+    margin-bottom: 25px;
+    color: #006c84;
+    font-weight: 700;
+}
+
+/* Grid flexible */
+.habitaciones-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 10px;
+}
+
+/* Card */
+.habitacion-card {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+    transition: transform .25s ease, box-shadow .25s ease;
+    margin-bottom: 20px;
+}
+
+.habitacion-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+}
+
+/* Imagen */
+.imagen-habitacion {
+    position: relative;
+}
+
+.imagen-habitacion img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+}
+
+/* Tag */
+.tag-no-disponible {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: rgba(220, 20, 60, 0.9);
+    padding: 6px 12px;
+    color: #fff;
+    border-radius: 6px;
+    font-size: .85rem;
+}
+
+/* Info */
+.info-habitacion {
+    padding: 18px;
+}
+
+.info-habitacion h3 {
+    color: #004d5a;
+    margin-bottom: 8px;
+    font-size: 1.4rem;
+}
+
+.precio {
+    margin: 10px 0;
+    color: #008b94;
+    font-weight: bold;
+}
+
+/* Estados */
+.estado {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: .9rem;
+}
+
+.estado.disponible {
+    background: #28a745;
+    color: white;
+}
+
+.estado.no-disponible {
+    background: #c92a2a;
+    color: white;
+}
+
+/* Formulario */
+.form-reserva {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    margin-top: 20px;
-}
-
-input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    outline: none;
-    font-size: 15px;
-    transition: border-color 0.3s;
-}
-
-input:focus {
-    border-color: #002855;
-}
-
-button {
-    background: #002855;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-button:hover {
-    background: #ffcb05;
-    color: #002855;
-}
-
-/*Footer */
-footer {
-    text-align: center;
-    padding: 20px 0;
-    background: #002855;
-    color: #fff;
-    margin-top: 50px;
-}
-
-/*Títulos */
-h1, h2, h3 {
-    color: #002855;
-    text-align: center;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-nav {
-    flex-wrap: wrap;
     gap: 10px;
 }
 
-main {
-    margin: 20px;
-    padding: 15px;
-}
+.mensaje-login {
+    font-size: .9rem;
+    color: #b40000;
+    margin-top: 5px;
 }
 
-
-.profile-container {
-    max-width: 500px;
-    margin: 2rem auto;
-    text-align: center;
-    background: #fff;
-    padding: 2rem;
-    border-radius: 1rem;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-.profile-card p {
-    font-size: 1.1rem;
-    margin: .6rem 0;
-}
-.btn-logout {
-    display: inline-block;
-    padding: .6rem 1.2rem;
-    background-color: #c0392b;
+/* Botón */
+.btn-reservar {
+    margin-top: 10px;
+    background: #00a896;
     color: #fff;
-    border-radius: .5rem;
-    text-decoration: none;
-    transition: background .2s;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background .3s;
 }
-.btn-logout:hover {
-    background-color: #e74c3c;
+
+.btn-reservar:hover {
+    background: #028090;
+}
+
+.no-disponible-msg {
+    margin-top: 10px;
+    color: #b00;
+}
+/*============================*/
+/*       Login / Logout       */
+/*============================*/
+
+/* ===== Fondo para Login y Register ===== */
+.auth-background1{
+        background-image: url('/img/FondoLogin2.jpg');
+}
+.auth-background2{
+    background-image: url('/img/FondoSingUp.jpg');
+}
+
+.auth-background1,.auth-background2 {
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+/* ===== Tarjeta del formulario ===== */
+.auth-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(6px);
+    padding: 40px 35px;
+    width: 100%;
+    max-width: 420px;
+    border-radius: 18px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+.auth-card h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #004e89;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* ===== Inputs ===== */
+.auth-card input {
+    width: 100%;
+    padding: 12px 14px;
+    margin-top: 6px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+/* ===== Botón ===== */
+.auth-card button {
+    width: 100%;
+    padding: 12px;
+    background: #0077b6;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.auth-card button:hover {
+    background: #0096c7;
+}
+
+/* ===== Links ===== */
+.auth-card p {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.auth-card a {
+    color: #00509d;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.auth-card a:hover {
+    text-decoration: underline;
+}
+
+/* Animación */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================
+   ==========================
+        PERFIL DE USUARIO
+   ==========================
+============================*/
+.profile-section {
+    background-color: #f4e9d8;
+}
+
+.profile-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #004f6e;
+    font-weight: 700;
+}
+
+.profile-card {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 15px;
+    max-width: 420px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    margin-bottom: 40px;
+}
+
+.logout-btn {
+    display: inline-block;
+    margin-top: 15px;
+    background-color: #c53030;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.logout-btn:hover {
+    background-color: #a51e1e;
+    transform: translateY(-2px);
+}
+
+.profile-subtitle {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    color: #004f6e;
+    font-weight: 700;
+}
+
+/* ===== GRID DE 3 COLUMNAS ===== */
+.reservas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+/* ===== Cada columna ===== */
+.reserva-columna {
+    background: #fff;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+}
+
+.columna-titulo {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+/* Colores de los títulos */
+.columna-titulo.pendiente { color: #c59100; }
+.columna-titulo.pagadas { color: #008b94; }
+.columna-titulo.pasadas { color: #555; }
+
+/* ===== Tarjeta de reserva ===== */
+.reserva-card {
+    background: #f7f1e8;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-left: 5px solid #c59f59;
+}
+
+.reserva-card p {
+    margin: 5px 0;
+}
+
+/* Botón cancelar */
+.btn-cancelar {
+    background: #c53030;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-cancelar:hover {
+    background: #a51e1e;
+}
+
+/* Si no hay reservas */
+.no-reservas {
+    font-size: 0.95rem;
+    opacity: 0.7;
+    font-style: italic;
+    margin-top: 10px;
 }

@@ -1,4 +1,43 @@
-<section class="hero">
-    <h1>Bienvenido a Axi hotel</h1>
-    <p>Tu descanso ideal te espera con nosotros.</p>
-</section>
+    <%- include('../Partials/Header') %>
+    <section class="section">
+        <h2 style="text-align:center;">Bienvenido a AXI HOTEL</h2>
+        <p style="text-align:center; max-width:700px; margin:20px auto; font-size:1.1rem;">
+            Somos un hotel diseñado para ofrecer tranquilidad, comodidad y una experiencia inolvidable.
+            Disfruta de un ambiente moderno con un toque playero, perfecto para vacaciones, trabajo
+            o una escapada especial.
+        </p>
+    </section>
+
+    <!-- HABITACIONES DESTACADAS -->
+    <section class="section">
+        <h2 style="text-align:center;">Habitaciones Destacadas</h2>
+
+        <div class="card-container">
+            <div class="card">
+                <img src="/img/Deluxe.jpg" alt="Suite premium">
+                <div class="card-body">
+                    <h3>Suite Premium</h3>
+                    <p>Vista al mar, zona lounge y diseño moderno.</p>
+                    <a class="btn" href="/Services">Ver más</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="/img/Double.jpg" alt="Habitación doble">
+                <div class="card-body">
+                    <h3>Habitación Doble</h3>
+                    <p>Ideal para familias o grupos pequeños.</p>
+                    <a class="btn" href="/Services">Ver más</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="/img/simple.jpg" alt="Habitación económica">
+                <div class="card-body">
+                    <h3>Habitación Económica</h3>
+                    <p>Comodidad al mejor precio.</p>
+                    <a class="btn" href="/Services">Ver más</a>
+                </div>
+            </div>
+        </div>
+    </section>

@@ -47,7 +47,7 @@ sequelize.sync({ force: false })
 app.get('/', (req, res) => res.render('Pages/Index', { titulo: 'Inicio' }));
 app.get('/AboutUs', (req, res) => res.render('Pages/AboutUs', { titulo: 'Nosotros' }));
 
-// ⭐ RUTA CORREGIDA PARA LISTAR HABITACIONES
+//  RUTA CORREGIDA PARA LISTAR HABITACIONES
 app.get('/Services', async (req, res) => {
     try {
         const habitaciones = await Room.findAll();
@@ -64,6 +64,7 @@ app.get('/Services', async (req, res) => {
 app.get('/Contact', (req, res) => res.render('Pages/Contact', { titulo: 'Contáctenos' }));
 app.get('/Login', (req, res) => res.render('Pages/Login', { titulo: 'Inicia sesión' }));
 app.get('/Register', (req, res) => res.render('Pages/Register', { titulo: 'Regístrate' }));
+
 
 // Importando rutas
 const userRoutes = require('./src/Routes/UserRoutes');

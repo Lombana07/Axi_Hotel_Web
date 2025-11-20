@@ -9,7 +9,7 @@ const Room = require('../Models/Room');
 // Middleware para verificar sesión
 function auth(req, res, next) {
     if (!req.session.usuario) {
-        return res.redirect('/Login');
+        return res.redirect('/user/Login');
     }
     next();
 }

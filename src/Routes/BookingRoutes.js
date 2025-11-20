@@ -1,54 +1,24 @@
-const express = require('express');
-const router = express.Router();
-const Booking = require('../Models/Booking');
-const Room = require('../Models/Room');
+const router = require('express').Router();
+const BookingController = require('../Controller/BookingController');
 
-// Middleware: solo usuarios logueados pueden reservar
+// Middleware para verificar login
 function usuarioLogueado(req, res, next) {
-    if (!req.session.usuario) {
-        return res.redirect('/Login');
-    }
+    if (!req.session.usuario) return res.redirect('/Login');
     next();
 }
 
-// Procesar reserva
-router.post('/crear', usuarioLogueado, async (req, res) => {
-    const { roomId, checkIn, checkOut } = req.body;
+// FORMULARIO PARA RESERVAR
+router.get('/reservar/:id', usuarioLogueado, BookingController.formularioReserva);
 
-    try {
-        // 1. Verificar si la habitación existe
-        const room = await Room.findByPk(roomId);
-        if (!room) {
-            return res.status(400).send("Habitación no encontrada");
-        }
+// CREAR RESERVA
+router.post('/crear', usuarioLogueado, BookingController.crearReserva);
 
-        // 2. Verificar disponibilidad en esas fechas
-        const conflicto = await Booking.findOne({
-            where: {
-                roomId,
-                checkIn: { [require('sequelize').Op.lte]: checkOut },
-                checkOut: { [require('sequelize').Op.gte]: checkIn }
-            }
-        });
+// LISTAR MIS RESERVAS
+router.get('/mis-reservas', usuarioLogueado, BookingController.misReservas);
 
-        if (conflicto) {
-            return res.send("Esta habitación NO está disponible en esas fechas");
-        }
-
-        // 3. Crear reserva
-        await Booking.create({
-            roomId,
-            userId: req.session.usuario.iduser,
-            checkIn,
-            checkOut
-        });
-
-        res.redirect('/Services');
-
-    } catch (error) {
-        console.error("Error en la reserva:", error);
-        res.status(500).send("Error interno al reservar");
-    }
-});
+// CANCELAR RESERVA
+router.post('/cancel/:id', usuarioLogueado, BookingController.cancelarReserva);
 
 module.exports = router;
+
+
