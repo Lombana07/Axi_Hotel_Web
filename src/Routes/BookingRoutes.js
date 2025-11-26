@@ -7,17 +7,20 @@ function usuarioLogueado(req, res, next) {
     next();
 }
 
-// FORMULARIO PARA RESERVAR
-router.get('/reservar/:id', usuarioLogueado, BookingController.formularioReserva);
-
 // CREAR RESERVA
 router.post('/crear', usuarioLogueado, BookingController.crearReserva);
 
 // LISTAR MIS RESERVAS
-router.get('/mis-reservas', usuarioLogueado, BookingController.misReservas);
+router.get('/Profile', usuarioLogueado, BookingController.misReservas);
 
 // CANCELAR RESERVA
 router.post('/cancel/:id', usuarioLogueado, BookingController.cancelarReserva);
+
+// Pagar reserva (cambiar de posicion)
+router.post('/pagar/:id', BookingController.pagarReserva);
+
+
+
 
 module.exports = router;
 

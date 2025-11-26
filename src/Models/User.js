@@ -7,6 +7,7 @@ const Usuario = sequelize.define('Usuario', {
     name: { type: DataTypes.STRING, allowNull: false },
     lastname: { type: DataTypes.STRING, allowNull: false },
     address: { type: DataTypes.STRING, allowNull: false },
+    rol: { type: DataTypes.STRING, defaultValue: "user"},
     mail: { type: DataTypes.STRING, unique: true, allowNull: false },
     password: { type: DataTypes.STRING, allowNull: false }
 }, {

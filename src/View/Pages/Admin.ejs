@@ -1,0 +1,110 @@
+<h1>Panel del Administrador</h1>
+
+<!-- ============================= -->
+<!-- Usuarios -->
+<!-- ============================= -->
+<div class="section">
+    <h2>Usuarios Registrados</h2>
+    <table id="tablaUsuarios">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Rol</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% usuarios.forEach(u => { %>
+                <tr>
+                    <td><%= u.iduser %></td>
+                    <td><%= u.name %></td>
+                    <td><%= u.mail %></td>
+                    <td><%= u.rol %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    <button class="print-btn" onclick="enviarYImprimir('tablaUsuarios', '<%= usuario.mail %>')">Imprimir Usuarios</button>
+</div>
+
+<!-- ============================= -->
+<!-- Reservas -->
+<!-- ============================= -->
+<div class="section">
+    <h2>Reservas</h2>
+    <table id="tablaReservas">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ID Usuario</th>
+                <th>Fecha</th>
+                <th>Id habitacion</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% reservas.forEach(r => { %>
+                <tr>
+                    <td><%= r.idreserva %></td>
+                    <td><%= r.iduser %></td>
+                    <td><%= r.fechaEntrada %></td>
+                    <td><%= r.idhabitacion %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    <button class="print-btn" onclick="enviarYImprimir('tablaReservas', '<%= usuario.mail %>')">Imprimir Reservas</button>
+</div>
+
+<!-- ============================= -->
+<!-- Contactenos -->
+<!-- ============================= -->
+<div class="section">
+    <h2>Mensajes de Contacto</h2>
+    <table id="tablaContactos">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Mensaje</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% contactos.forEach(c => { %>
+                <tr>
+                    <td><%= c.idcontacto %></td>
+                    <td><%= c.nombre %></td>
+                    <td><%= c.email %></td>
+                    <td><%= c.mensaje %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    <button class="print-btn" onclick="enviarYImprimir('tablaContactos', '<%= usuario.mail %>')">Imprimir Contactos</button>
+</div>
+
+
+<script>
+function enviarYImprimir(idTabla, correoDestino) {
+
+    const tabla = document.getElementById(idTabla);
+    const filas = [...tabla.querySelectorAll("tr")].map(tr =>
+        [...tr.querySelectorAll("th, td")].map(td => td.innerText).join(" | ")
+    );
+    const contenido = filas.join("\n");
+    fetch('/user/admin/enviar-txt', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            email: correoDestino,
+            contenido: contenido,
+            nombreArchivo: idTabla + ".txt"
+        })
+    })
+    .then(r => r.json())
+    .then(() => {
+        window.print();
+    });
+}
+</script>

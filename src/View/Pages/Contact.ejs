@@ -1,10 +1,30 @@
-<section>
-    <h2>Contáctenos</h2>
-    <form>
-        <label>Nombre:</label>
-        <input type="text" name="nombre"><br>
-        <label>Mensaje:</label>
-        <textarea name="mensaje"></textarea><br>
-        <button type="submit">Enviar</button>
-    </form>
-</section>
+<h2>Contáctanos</h2>
+
+<form action="/contact" method="POST" class="contact-form">
+    <input type="text" name="nombre" placeholder="Tu nombre" required>
+    <input type="email" name="email" placeholder="Tu email" required>
+    <textarea name="mensaje" placeholder="Tu mensaje" required></textarea>
+    <button type="submit">Enviar</button>
+</form>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<% if (typeof success !== 'undefined') { %>
+<script>
+Swal.fire({
+    icon: "success",
+    title: "¡Mensaje enviado!",
+    text: "<%= success %>"
+});
+</script>
+<% } %>
+
+<% if (typeof error !== 'undefined') { %>
+<script>
+Swal.fire({
+    icon: "error",
+    title: "Error",
+    text: "<%= error %>"
+});
+</script>
+<% } %>

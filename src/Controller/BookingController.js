@@ -9,10 +9,10 @@ const { Op } = require("sequelize");
 exports.formularioReserva = async (req, res) => {
     if (!req.session.usuario) return res.redirect('/Login');
     const habitacion = await Habitacion.findByPk(req.params.id);
-    if (!habitacion) return res.send("Habitación no encontrada");
-    res.render('Pages/Reservar', {
+    if (!habitaciones) return res.send("Habitación no encontrada");
+    res.render('Pages/Services', {
         titulo: "Reservar habitación",
-        habitacion
+        habitaciones: [habitacion]
     });
 };
 
@@ -23,36 +23,64 @@ exports.crearReserva = async (req, res) => {
     try {
         const { idhabitacion, fechaEntrada, fechaSalida } = req.body;
         const iduser = req.session.usuario.iduser;
-        if (!fechaEntrada || !fechaSalida)
-            return res.send("Debes elegir ambas fechas");
-        if (fechaEntrada >= fechaSalida)
-            return res.send("La fecha de salida debe ser posterior a la de entrada");
-        // Validar habitación
+        const hoy = new Date().toISOString().split("T")[0];
         const habitacion = await Habitacion.findByPk(idhabitacion);
-        if (!habitacion) return res.send("Habitación no encontrada");
-        // Verificar disponibilidad
+        if (!habitacion) {
+            return res.render("Pages/Services", {
+                habitaciones: [habitacion],
+                error: "Habitación no encontrada"
+            });
+        }
+        if (!fechaEntrada || !fechaSalida) {
+            return res.render("Pages/Services", {
+                habitaciones: [habitacion],
+                error: "Debes elegir ambas fechas"
+            });
+        }
+        if (fechaEntrada < hoy) {
+            return res.render("Pages/Services", {
+                habitaciones: [habitacion],
+                error: "La fecha de entrada no puede ser anterior a hoy"
+            });
+        }
+        if (fechaEntrada >= fechaSalida) {
+            return res.render("Pages/Services", {
+                habitaciones: [habitacion],
+                error: "La fecha de salida debe ser posterior a la de entrada"
+            });
+        }
         const conflicto = await Reserva.findOne({
             where: {
                 idhabitacion,
-                fechaEntrada: { [Op.lte]: fechaSalida },
-                fechaSalida: { [Op.gte]: fechaEntrada }
+                fechaEntrada: { [Op.lt]: fechaSalida },
+                fechaSalida: { [Op.gt]: fechaEntrada }
             }
         });
-        if (conflicto)
-            return res.send("⚠ La habitación NO está disponible en esas fechas");
-        // Crear reserva
+        if (conflicto) {
+            return res.render("Pages/Services", {
+                habitaciones: [habitacion],
+                error: "⚠ La habitación NO está disponible en esas fechas"
+            });
+        }
         await Reserva.create({
             iduser,
             idhabitacion,
             fechaEntrada,
             fechaSalida
         });
-        res.redirect('/user/profile');
+        return res.render("Pages/Services", {
+            habitaciones: [habitacion],
+            success: "Reserva creada correctamente"
+        });
     } catch (error) {
         console.log(error);
-        res.send("Error al crear la reserva");
+        return res.render("Pages/Services", {
+            habitaciones: [],
+            error: "Ocurrió un error al crear la reserva"
+        });
     }
 };
+
 
 // ============================
 // LISTAR MIS RESERVAS
@@ -64,7 +92,7 @@ exports.misReservas = async (req, res) => {
         where: { iduser },
         include: [{ model: Habitacion }]
     });
-    res.render('Pages/MisReservas', {
+    res.render('Pages/Profile', {
         titulo: "Mis Reservas",
         reservas
     });
@@ -88,3 +116,19 @@ exports.cancelarReserva = async (req, res) => {
     }
 };
 
+// ============================
+// PAGAR RESERVA
+// ============================
+
+exports.pagarReserva = async (req, res) => {
+    try {
+        const reserva = await Reserva.findByPk(req.params.id);
+        if (!reserva) return res.status(404).send("Reserva no encontrada");
+        reserva.estado = "pagada";
+        await reserva.save();
+        res.redirect('/user/profile'); // donde se ve el dashboard
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Error al pagar la reserva");
+    }
+};

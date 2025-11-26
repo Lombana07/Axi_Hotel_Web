@@ -1,0 +1,3 @@
+ID | Nombre | Email | Rol
+1 | Wendy | Miamorcito@gmail.com | user
+2 | AdminAxi | davidlombanayepes@gmail.com | admin

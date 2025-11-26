@@ -16,18 +16,24 @@
         =========================== -->
         <div class="reserva-columna">
             <h3 class="columna-titulo pendiente">Pendientes de Pago</h3>
-            <% if (reservas.length === 0) { %>
+            <% if (pendientes.length === 0) { %>
                 <p class="no-reservas">No tienes reservas pendientes.</p>
             <% } %>
-            <% reservas.forEach(res => { %>
+            <% pendientes.forEach(res => { %>
                 <div class="reserva-card">
                     <p><strong>Numero de reserva:</strong> <%= res.idreserva %></p>
                     <p><strong>Id habitacion:</strong> <%= res.idhabitacion %></p>
                     <p><strong>Entrada:</strong> <%= res.fechaEntrada %></p>
                     <p><strong>Salida:</strong> <%= res.fechaSalida %></p>
+                    <p><strong>Precio:</strong> $<%= res.Habitacion.precio %></p>
                     <form action="/bookings/cancel/<%= res.idreserva %>" method="POST">
                         <button class="btn-cancelar">Cancelar</button>
                     </form>
+                    <hr>
+                    <form action="/bookings/pagar/<%= res.idreserva %>" method="POST">
+                        <button class="btn-cancelar">Pagar</button>
+                    </form>
+                    <hr>
                 </div>
             <% }) %>
         </div>
@@ -36,16 +42,39 @@
         =========================== -->
         <div class="reserva-columna">
             <h3 class="columna-titulo pagadas">Pagadas / Próximas</h3>
-            <p class="no-reservas">Aún no tienes reservas pagadas.</p>
-            <!-- Aquí se llenarán más adelante -->
+            <% if (pagadas.length === 0) { %>
+                <p class="no-reservas">Aún no tienes reservas pagadas.</p>
+            <% } else { %>
+                <% pagadas.forEach(res => { %>
+                    <div class="reserva-item">
+                        <h4><%= res.tipo %> - Habitación <%= res.idhabitacion %></h4>
+                        <p><strong>Fecha:</strong> <%= res.fechaEntrada %></p>
+                        <p><strong>Precio:</strong> $<%= res.Habitacion.precio %></p>
+                        <p><strong>Estado:</strong> <%= res.estado %></p>
+                        <hr>
+                    </div>
+                <% }) %>
+            <% } %>
         </div>
         <!-- ==========================
             3. RESERVAS PASADAS
         =========================== -->
         <div class="reserva-columna">
             <h3 class="columna-titulo pasadas">Historial</h3>
-            <p class="no-reservas">Aún no tienes reservas pasadas.</p>
-            <!-- Aquí también se llenará después -->
+        
+            <% if (historial.length === 0) { %>
+                <p class="no-reservas">Aún no tienes reservas pasadas.</p>
+            <% } else { %>
+                <% historial.forEach(res => { %>
+                    <div class="reserva-item">
+                        <p><strong>- Habitación <%= res.Habitacion.idhabitacion %></strong></p>
+                        <p><strong>Fecha:</strong> <%= res.fechaEntrada %></p>
+                        <p><strong>Precio:</strong> $<%= res.Habitacion.precio %></p>
+                        <p><strong>Estado:</strong> <%= res.estado %></p>
+                        <hr>
+                    </div>
+                <% }) %>
+            <% } %>
         </div>
     </div>
 </div>

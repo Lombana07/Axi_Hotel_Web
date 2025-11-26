@@ -5,9 +5,10 @@ const Habitacion = require('./Room');
 
 const Reserva = sequelize.define('Reserva', {
     idreserva: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-
     fechaEntrada: { type: DataTypes.DATEONLY, allowNull: false },
-    fechaSalida: { type: DataTypes.DATEONLY, allowNull: false }
+    fechaSalida: { type: DataTypes.DATEONLY, allowNull: false },
+    estado: { type: DataTypes.STRING, allowNull: false, defaultValue: "pendiente"}
+
 }, {
     timestamps: true,
     tableName: 'Reserva'
